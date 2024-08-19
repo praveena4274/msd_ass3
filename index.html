@@ -98,27 +98,6 @@
         }
         
         .task-2 .button {
-            width: 80px;
-            /* Adjust size */
-            height: 80px;
-            /* Adjust size */
-            font-size: 20px;
-            /* Adjust font size */
-        }
-        
-        .task-2 .opr {
-            color: #fbff00;
-            background: #1e1919;
-            font-weight: 700;
-        }
-        
-        .task-2 #eqBtn {
-            background: orangered;
-            font-weight: 900;
-        }
-        /* Task 2: Array Operations and Person Object */
-        
-        .task-2 .button {
             width: 150px;
             /* Adjust width */
             height: 50px;
@@ -129,17 +108,20 @@
             /* Slightly rounded corners for rectangular shape */
             padding: 10px;
             /* Adjust padding for a better fit */
-        }
-        
-        .task-2 .button.black {
             background-color: orangered;
             /* Ensure button color contrasts with text */
             color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .task-2 .button:hover {
+            background-color: darkorange;
         }
         /* Task 3: Person Object */
         
         .task-3 .button {
-            width: 120px;
+            width: 150px;
             /* Adjust width */
             height: 50px;
             /* Adjust height */
@@ -149,12 +131,15 @@
             /* Slightly rounded corners for rectangular shape */
             padding: 10px;
             /* Adjust padding for a better fit */
-        }
-        
-        .task-3 .button.black {
             background-color: black;
             /* Ensure button color contrasts with text */
             color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .task-3 .button:hover {
+            background-color: gray;
         }
     </style>
 </head>
@@ -196,6 +181,7 @@
                 </div>
                 <div class="row">
                     <button type="button" id="plusMinus">&#xB1;</button>
+                    <button type="button">0</button>
                     <button type="button">.</button>
                     <button type="button" id="eqBtn">=</button>
                 </div>
@@ -208,22 +194,22 @@
             <div class="array-section">
                 <h2>Array Operations</h2><br>
                 <label for="numbersArray" style="color:white;padding:10px;font-size:20px">Input an array of numbers:</label>
-                <input type="text" id="numbersArray " placeholder="e.g., 1, 2, 3, 4, 5, 6" style="height:30px"><br><br>
-                <button class="button black" onclick="displaySumOfEvens()" style="font-size:16px">Calculate Sum of Evens</button>
+                <input type="text" id="numbersArray" placeholder="e.g., 1, 2, 3, 4, 5, 6" style="height:30px"><br><br>
+                <button class="button" onclick="displaySumOfEvens()" style="font-size:16px">Calculate Sum of Evens</button>
                 <p id="sumResult"></p>
             </div><br><br>
 
             <h2 style="color:white">Task 3: Person Object</h2>
             <div class="person-section">
                 <h2>Person Object</h2><br>
-                <label style="color:white;font-size:20px">First Name: <input type="text" id="firstNameInput" value="praveena"style="height:30px"></label><br><br>
-                <label style="color:white;font-size:20px">Last Name: <input type="text" id="lastNameInput" value="manchina"style="height:30px"></label><br><br>
-                <label style="color:white;font-size:20px">Age: <input type="number" id="ageInput" value="19"style="height:30px" ></label><br><br>
-                <button class="button black" onclick="updatePerson()" style="font-size:16px">Update Person</button><br><br>
+                <label style="color:white;font-size:20px">First Name: <input type="text" id="firstNameInput" value="praveena" style="height:30px"></label><br><br>
+                <label style="color:white;font-size:20px">Last Name: <input type="text" id="lastNameInput" value="manchina" style="height:30px"></label><br><br>
+                <label style="color:white;font-size:20px">Age: <input type="number" id="ageInput" value="19" style="height:30px"></label><br><br>
+                <button class="button" onclick="updatePerson()" style="font-size:16px">Update Person</button><br><br>
                 <h3>Person Info</h3><br>
                 <label style="color:white">Full Name: <span id="fullName"></span></label><br><br>
                 <label style="color:white">Age: <span id="age"></span></label><br><br>
-                <button class="button black" onclick="incrementPersonAge()" style="font-size:16px">Increase Age</button><br>
+                <button class="button" onclick="incrementPersonAge()" style="font-size:16px">Increase Age</button><br>
             </div>
         </section>
     </div>
@@ -276,8 +262,13 @@
             const cleanedInput = numbersInput.replace(/[\[\]]/g, '');
             const numbersArray = cleanedInput.split(',').map(Number);
 
-            const sum = sumOfEvenNumbers(numbersArray);
-            document.getElementById('sumResult').textContent = `Sum of even numbers: ${sum}`;
+            // Check if input array contains valid numbers
+            if (numbersArray.every(num => !isNaN(num))) {
+                const sum = sumOfEvenNumbers(numbersArray);
+                document.getElementById('sumResult').textContent = `Sum of even numbers: ${sum}`;
+            } else {
+                document.getElementById('sumResult').textContent = 'Please enter valid numbers.';
+            }
         }
 
         // Task 3: Object Manipulation (Person Object)
